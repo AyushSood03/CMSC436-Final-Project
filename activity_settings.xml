@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <View
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="#AAA"
+        android:layout_margin="10dp"
+        android:id="@+id/back_button"/>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/back_button"
+        android:padding="10dp"
+        android:paddingStart="50dp"
+        android:id="@+id/dark_mode_switch"
+        android:textSize="28sp"
+        android:text="Dark Mode"
+        />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dark_mode_switch"
+        android:padding="10dp"
+        android:paddingStart="50dp"
+        android:id="@+id/unit_choice"
+        android:orientation="horizontal"
+        android:checkedButton="@id/unit_imperial">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Imperial   "
+            android:textSize="28sp"
+            android:id="@+id/unit_imperial"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Metric"
+            android:textSize="28sp"
+            android:id="@+id/unit_metric"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50 Farenheit\n30 mph"
+        android:layout_below="@+id/unit_choice"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp"
+        android:id="@+id/unit_preview"/>
+
+</RelativeLayout>
