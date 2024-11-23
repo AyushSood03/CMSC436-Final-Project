@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- This is a placeholder for the settings icon -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@android:drawable/ic_menu_manage"
+        android:layout_margin="10dp"
+        android:id="@+id/settings_button"/>
+
+    <!-- This is a placeholder for the search icon -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@android:drawable/ic_menu_search"
+        android:layout_margin="10dp"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/search_button"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/trending_text"
+        android:layout_below="@+id/settings_button"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:text="Trending Locations:"/>
+
+    <!-- The grid for trending locations. -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/trending_grid"
+        android:layout_below="@+id/trending_text"
+        android:layout_centerHorizontal="true"
+        android:columnCount="2"
+        android:rowCount="1">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:id="@+id/trending_space1"
+            android:layout_margin="25dp"
+            android:textSize="25sp"
+            android:text="Location\nTemperature\nWind Speed"
+            android:background="#777"/>
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:id="@+id/trending_space2"
+            android:layout_margin="25dp"
+            android:textSize="25sp"
+            android:text="Location\nTemperature\nWind Speed"
+            android:background="#777"/>
+    </GridLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/custom_text"
+        android:layout_below="@+id/trending_grid"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:text="Custom Locations:"/>
+
+    <!-- The grid for custom locations that the user selects. -->
+    <GridLayout
+        android:layout_below="@+id/custom_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/custom_grid"
+        android:columnCount="2"
+        android:rowCount="1">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:id="@+id/custom_space1"
+            android:layout_margin="25dp"
+            android:textSize="25sp"
+            android:text="Location\nTemperature\nWind Speed"
+            android:background="#777"/>
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:id="@+id/custom_space2"
+            android:layout_margin="25dp"
+            android:textSize="25sp"
+            android:text="Location\nTemperature\nWind Speed"
+            android:background="#777"/>
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:id="@+id/custom_space3"
+            android:layout_margin="25dp"
+            android:textSize="25sp"
+            android:text="Location\nTemperature\nWind Speed"
+            android:background="#777"/>
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:id="@+id/custom_space4"
+            android:layout_margin="25dp"
+            android:textSize="25sp"
+            android:text="Location\nTemperature\nWind Speed"
+            android:background="#777"/>
+    </GridLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/ad_view"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#505"/>
+
+</RelativeLayout>
