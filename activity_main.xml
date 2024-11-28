@@ -7,19 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- This is a placeholder for the settings icon -->
+    <!-- This is the settings icon -->
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@android:drawable/ic_menu_manage"
+        android:backgroundTint="@color/redpinkish"
         android:layout_margin="10dp"
         android:id="@+id/settings_button"/>
 
-    <!-- This is a placeholder for the search icon -->
+    <!-- This is the search icon -->
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@android:drawable/ic_menu_search"
+        android:backgroundTint="@color/redpinkish"
         android:layout_margin="10dp"
         android:layout_alignParentEnd="true"
         android:id="@+id/search_button"/>
@@ -50,7 +52,8 @@
             android:layout_margin="25dp"
             android:textSize="25sp"
             android:text="Location\nTemperature\nWind Speed"
-            android:background="#777"/>
+            android:background="@drawable/rounded_corner_view"
+            />
 
         <TextView
             android:layout_width="150dp"
@@ -59,7 +62,8 @@
             android:layout_margin="25dp"
             android:textSize="25sp"
             android:text="Location\nTemperature\nWind Speed"
-            android:background="#777"/>
+            android:background="@drawable/rounded_corner_view"
+            />
     </GridLayout>
 
     <TextView
@@ -87,7 +91,8 @@
             android:layout_margin="25dp"
             android:textSize="25sp"
             android:text="Location\nTemperature\nWind Speed"
-            android:background="#777"/>
+            android:background="@drawable/rounded_corner_view"
+            />
 
         <TextView
             android:layout_width="150dp"
@@ -96,7 +101,8 @@
             android:layout_margin="25dp"
             android:textSize="25sp"
             android:text="Location\nTemperature\nWind Speed"
-            android:background="#777"/>
+            android:background="@drawable/rounded_corner_view"
+            />
 
         <TextView
             android:layout_width="150dp"
@@ -105,7 +111,8 @@
             android:layout_margin="25dp"
             android:textSize="25sp"
             android:text="Location\nTemperature\nWind Speed"
-            android:background="#777"/>
+            android:background="@drawable/rounded_corner_view"
+            />
 
         <TextView
             android:layout_width="150dp"
@@ -114,9 +121,12 @@
             android:layout_margin="25dp"
             android:textSize="25sp"
             android:text="Location\nTemperature\nWind Speed"
-            android:background="#777"/>
+            android:background="@drawable/rounded_corner_view"
+            />
     </GridLayout>
 
+    <!-- This is a placeholder for the adView because my computer does not
+         like making adViews for some reason - Leo. -->
     <View
         android:layout_width="match_parent"
         android:layout_height="50dp"
