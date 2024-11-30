@@ -51,7 +51,6 @@
             android:id="@+id/trending_space1"
             android:layout_margin="25dp"
             android:textSize="25sp"
-            android:text="Location\nTemperature\nWind Speed"
             android:background="@drawable/rounded_corner_view"
             />
 
@@ -61,7 +60,6 @@
             android:id="@+id/trending_space2"
             android:layout_margin="25dp"
             android:textSize="25sp"
-            android:text="Location\nTemperature\nWind Speed"
             android:background="@drawable/rounded_corner_view"
             />
     </GridLayout>
@@ -90,7 +88,6 @@
             android:id="@+id/custom_space1"
             android:layout_margin="25dp"
             android:textSize="25sp"
-            android:text="Location\nTemperature\nWind Speed"
             android:background="@drawable/rounded_corner_view"
             />
 
@@ -100,29 +97,28 @@
             android:id="@+id/custom_space2"
             android:layout_margin="25dp"
             android:textSize="25sp"
-            android:text="Location\nTemperature\nWind Speed"
             android:background="@drawable/rounded_corner_view"
             />
 
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="120dp"
-            android:id="@+id/custom_space3"
-            android:layout_margin="25dp"
-            android:textSize="25sp"
-            android:text="Location\nTemperature\nWind Speed"
-            android:background="@drawable/rounded_corner_view"
-            />
+<!--        <TextView-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="120dp"-->
+<!--            android:id="@+id/custom_space3"-->
+<!--            android:layout_margin="25dp"-->
+<!--            android:textSize="25sp"-->
+<!--            android:text="Location\nTemperature\nWind Speed"-->
+<!--            android:background="@drawable/rounded_corner_view"-->
+<!--            />-->
 
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="120dp"
-            android:id="@+id/custom_space4"
-            android:layout_margin="25dp"
-            android:textSize="25sp"
-            android:text="Location\nTemperature\nWind Speed"
-            android:background="@drawable/rounded_corner_view"
-            />
+<!--        <TextView-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="120dp"-->
+<!--            android:id="@+id/custom_space4"-->
+<!--            android:layout_margin="25dp"-->
+<!--            android:textSize="25sp"-->
+<!--            android:text="Location\nTemperature\nWind Speed"-->
+<!--            android:background="@drawable/rounded_corner_view"-->
+<!--            />-->
     </GridLayout>
 
     <!-- This is a placeholder for the adView because my computer does not

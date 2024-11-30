@@ -7,16 +7,18 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-class ApiTask : Thread {
+// "Leo, did you really just make a Kotlin file that is basically the same as ApiTask for a very
+// slight convenience?" Yes, I did.
+class HomeApiTask : Thread {
     private var results : String = "EMPTY STRING"
-    private lateinit var activity : SearchActivity
+    private lateinit var activity : MainActivity
 
     private var lon : String = "0.0"
     private var lat : String = "0.0"
     private var isMetric : String = "imperial"
     private var locNum : Int = 0
 
-    constructor(activity : SearchActivity, lon : String, lat : String, isMetric : Boolean, locNum : Int) {
+    constructor(activity : MainActivity, lon : String, lat : String, isMetric : Boolean, locNum : Int) {
         this.activity = activity
 
         this.lon = lon
@@ -81,7 +83,7 @@ class ApiTask : Thread {
             var windspeed = weatherData0.getString("wind_spd")
 
             // Combining the retrieved the data into something comprehensible.
-            res = location + "\n" + temperature + tempUnits + "\t\t" + windspeed + windUnits
+            res = location + "\n" + temperature + tempUnits + "\n" + windspeed + windUnits
 
         } catch (e : JSONException) {
             Log.w("MainActivity", "Exception: " + e.message)

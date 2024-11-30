@@ -3,6 +3,7 @@ package com.example.finalproject
 class ThreadTask : Thread {
 
     private var results : String = "EMPTY STRING"
+    private var locNum : Int = 0
     private lateinit var activity : SearchActivity
 
     constructor(activity : SearchActivity) {
@@ -20,7 +21,7 @@ class ThreadTask : Thread {
 
     inner class UpdateGui : Runnable {
         override fun run() {
-            activity.updateView(results)
+            activity.updateView(results, locNum)
         }
     }
 }
