@@ -214,6 +214,12 @@
             android:id="@+id/fav_button4b"/>
     </RelativeLayout>
 
-
+    <ProgressBar
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/progBar"
+        android:layout_below="@+id/lp1"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>
