@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "600053338414",
+    "project_id": "finalweatherdatabase",
+    "storage_bucket": "finalweatherdatabase.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600053338414:android:cd87181c0b815765b5eabf",
+        "android_client_info": {
+          "package_name": "com.example.finalproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvs1k8fjAtGz2rYkzTuMU0eZM1xFTHj6Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
