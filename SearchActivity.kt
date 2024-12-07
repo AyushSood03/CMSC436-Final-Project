@@ -9,8 +9,10 @@ import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -19,6 +21,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var homeButton : Button
     private lateinit var searchButton : Button
     private lateinit var searchBar : EditText
+    private lateinit var progBar : ProgressBar
 
     // Yes, there is a mutable list of mutable lists. There has to be two per entry in weatherTexts.
     private var weatherTexts : MutableList<TextView> = mutableListOf<TextView>()
@@ -41,6 +44,7 @@ class SearchActivity : AppCompatActivity() {
         homeButton = findViewById(R.id.home_button)
         searchButton = findViewById(R.id.search_button)
         searchBar = findViewById(R.id.search_bar)
+        progBar = findViewById(R.id.progBar)
 
         weatherTexts.add(findViewById(R.id.weatherText0))
         weatherTexts.add(findViewById(R.id.weatherText1))
@@ -100,15 +104,22 @@ class SearchActivity : AppCompatActivity() {
     }
 
     fun geocode(address : String) {
+        progBar.visibility = View.VISIBLE
+
         var geocoder : Geocoder = Geocoder(this)
         var handler : GeocodingHandler = GeocodingHandler()
         geocoder.getFromLocationName(address, 5, handler)
+
+        Log.w("MainActivity", "Reached geocode part")
 
         // Please forgive me for what I have done. I need this here to create a delay so that lon
         // and lat are updated in main class before the rest of the geocode function executes.
         while (shittyDelayThing) { /* Literally nothing happens in here. */ }
 
+        // Does not get to after
+        Log.w("MainActivity", "After geocode loop")
         shittyDelayThing = true
+        progBar.visibility = View.GONE
 
         var x : Int = 0
         while (x < numLocs) {
@@ -176,13 +187,20 @@ class SearchActivity : AppCompatActivity() {
             // lat variables according to the longitude and latitude for the given location.
             if (p0.size >= 1) {
                 numLocs = 0
+                Log.w("MainActivity", "Array is: " + p0)
+                Log.w("MainActivity", "Length: " + p0.size)
                 for (address in p0) {
                     lon[numLocs] = address.longitude.toString()
                     lat[numLocs] = address.latitude.toString()
 
                     numLocs += 1
+
+                    // Just in case this tries to infloop for whatever reason.
+                    if (numLocs >= 5)
+                        break
                 }
 
+                // Reaches out here successfully.
                 shittyDelayThing = false
 
             } else {
