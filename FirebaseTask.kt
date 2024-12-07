@@ -13,12 +13,13 @@ class FirebaseTask: Thread {
     private var reference: DatabaseReference
     private var key: String
 
-    constructor(activity: SearchActivity, lon: String, lat: String, address: String) {
+    constructor(activity: SearchActivity, address: String) {
         this.activity = activity
         this.firebase = FirebaseDatabase.getInstance()
         this.reference = firebase.getReference()
-        this.key = "$lon,$lat"
         this.key = address
+        var thiskey: String = this.key
+        Log.w("MainActivity", "$thiskey")
     }
 
     override fun run() {
@@ -26,11 +27,18 @@ class FirebaseTask: Thread {
         Log.w("MainActivity", "Start of FirebaseTask.run()")
         this.reference.child(this.key).get().addOnSuccessListener {
             Log.w("MainActivity", "Before Updating Child")
-            this.reference.child(this.key).setValue((it.value.toString().toInt() + 1).toString())
+            var str: String = it.value.toString()
+            Log.w("MainActivity", "$str")
+            if (str == "null") {
+                this.reference.child(this.key).setValue("1")
+            }
+            else {
+                this.reference.child(this.key).setValue((it.value.toString().toInt() + 1).toString())
+            }
             Log.w("MainActivity", "After Updating Child")
         }.addOnFailureListener{
             Log.w("MainActivity", "Before Adding New Child")
-            this.reference.child(this.key).setValue(1)
+            this.reference.child(this.key).setValue("1")
             Log.w("MainActivity", "After Adding New Child")
         }
         Log.w("MainActivity", "End of FirebaseTask.run()")
