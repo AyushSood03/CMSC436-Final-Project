@@ -9,7 +9,7 @@ import org.json.JSONObject
 
 class ApiTask : Thread {
     private var results : String = "EMPTY STRING"
-    private lateinit var activity : SearchActivity
+    private var activity : SearchActivity
 
     private var lon : String = "0.0"
     private var lat : String = "0.0"

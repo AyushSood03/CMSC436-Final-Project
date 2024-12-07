@@ -1,6 +1,7 @@
 package com.example.finalproject
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -113,6 +114,14 @@ class SearchActivity : AppCompatActivity() {
         while (x < numLocs) {
             var task : ApiTask = ApiTask(this, lon[x], lat[x], isMetric, x)
             task.start()
+            // Log.w("MainActivity", "ApiTask Started")
+            /*while (task.isAlive) {
+                // wait for ApiTask
+                // Log.w("MainActivity", "Waiting for ApiTask to finish")
+            }*/
+
+            var firebaseTask: FirebaseTask = FirebaseTask(this, lon[x], lat[x])
+            firebaseTask.start()
             x += 1
         }
     }
@@ -169,6 +178,7 @@ class SearchActivity : AppCompatActivity() {
                 for (address in p0) {
                     lon[numLocs] = address.longitude.toString()
                     lat[numLocs] = address.latitude.toString()
+
                     numLocs += 1
                 }
 
