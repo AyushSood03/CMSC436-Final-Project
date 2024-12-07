@@ -13,11 +13,12 @@ class FirebaseTask: Thread {
     private var reference: DatabaseReference
     private var key: String
 
-    constructor(activity: SearchActivity, lon: String, lat: String) {
+    constructor(activity: SearchActivity, lon: String, lat: String, address: String) {
         this.activity = activity
         this.firebase = FirebaseDatabase.getInstance()
         this.reference = firebase.getReference()
         this.key = "$lon,$lat"
+        this.key = address
     }
 
     override fun run() {

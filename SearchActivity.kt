@@ -120,7 +120,7 @@ class SearchActivity : AppCompatActivity() {
                 // Log.w("MainActivity", "Waiting for ApiTask to finish")
             }*/
 
-            var firebaseTask: FirebaseTask = FirebaseTask(this, lon[x], lat[x])
+            var firebaseTask: FirebaseTask = FirebaseTask(this, lon[x], lat[x], address)
             firebaseTask.start()
             x += 1
         }
