@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -25,7 +27,15 @@ class MainActivity : AppCompatActivity() {
     private var favLat1 : String = ""
     private var favLat2 : String = ""
 
+    private var trendLon1 : String = ""
+    private var trendLon2 : String = ""
+    private var trendLat1 : String = ""
+    private var trendLat2 : String = ""
+
     private var isMetric : Boolean = false
+
+    // I'm just tired at this point.
+    private var isTrend1 : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +57,11 @@ class MainActivity : AppCompatActivity() {
         getPreferences()
 
         if (!favLon1.equals("none") && favLat1.equals("none")) {
-            var task1 : HomeApiTask = HomeApiTask(this, favLon1, favLat1, isMetric, 0)
+            var task1 : HomeApiTask = HomeApiTask(this, favLon1, favLat1, isMetric, 0, false)
             task1.start()
         }
         if (!favLon2.equals("none") && favLat2.equals("none")) {
-            var task2: HomeApiTask = HomeApiTask(this, favLon2, favLat2, isMetric, 1)
+            var task2: HomeApiTask = HomeApiTask(this, favLon2, favLat2, isMetric, 1, false)
             task2.start()
         }
     }
@@ -62,17 +72,35 @@ class MainActivity : AppCompatActivity() {
         getPreferences()
 
         if (!favLon1.equals("none") && !favLat1.equals("none")) {
-            var task1 : HomeApiTask = HomeApiTask(this, favLon1, favLat1, isMetric, 0)
+            var task1 : HomeApiTask = HomeApiTask(this, favLon1, favLat1, isMetric, 0, false)
             task1.start()
         }
         if (!favLon2.equals("none") && !favLat2.equals("none")) {
-            var task2: HomeApiTask = HomeApiTask(this, favLon2, favLat2, isMetric, 1)
+            var task2: HomeApiTask = HomeApiTask(this, favLon2, favLat2, isMetric, 1, false)
             task2.start()
         }
     }
 
-    fun updateView(s : String, locNum : Int) {
+    fun updateView(s : String, locNum : Int, topKey : String, secondTopKey : String) {
         customSpaces[locNum].text = s
+
+        var geocoder : Geocoder = Geocoder(this)
+        var handler : GeocodingHandler = GeocodingHandler()
+        geocoder.getFromLocationName(topKey, 1, handler)
+        Thread.sleep(500L)
+        isTrend1 = false
+        geocoder.getFromLocationName(secondTopKey, 1, handler)
+        Thread.sleep(500L)
+
+        var task1 : HomeApiTask = HomeApiTask(this, trendLon1, trendLat1, isMetric, 0, true)
+        task1.start()
+        var task2 : HomeApiTask = HomeApiTask(this, trendLon2, trendLat2, isMetric, 1, true)
+        task2.start()
+        isTrend1 = true
+    }
+
+    fun updateTrending(s : String, locNum : Int) {
+        trendingSpaces[locNum].text = s
     }
 
     // There are some things that I cannot change using the day theme, so I am doing them
@@ -138,5 +166,26 @@ class MainActivity : AppCompatActivity() {
         favLon2 = pref.getString("favorite_lon2".toString(), "none").toString()
         favLat1 = pref.getString("favorite_lat1".toString(), "none").toString()
         favLat2 = pref.getString("favorite_lat2".toString(), "none").toString()
+    }
+
+    inner class GeocodingHandler : Geocoder.GeocodeListener {
+        override fun onGeocode(p0: MutableList<Address>) {
+            if (p0.size >= 1) {
+                if (isTrend1) {
+                    trendLon1 = p0[0].longitude.toString()
+                    trendLat1 = p0[0].latitude.toString()
+                } else {
+                    trendLon2 = p0[0].longitude.toString()
+                    trendLat2 = p0[0].latitude.toString()
+                }
+            } else {
+                Log.w("MainActivity", "How did this even happen!?")
+            }
+        }
+
+        override fun onError(errorMessage: String?) {
+            super.onError(errorMessage)
+            Log.w("MainActivity", "Error: " + errorMessage)
+        }
     }
 }

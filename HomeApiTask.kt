@@ -31,13 +31,15 @@ class HomeApiTask : Thread {
 
     private var shittyDelayThing2 = true // Following in the footsteps of Leo, our fearless leader. -Ayush
     private var dummyVal: Int = 0
+    private var forTrending : Boolean = false
 
-    constructor(activity : MainActivity, lon : String, lat : String, isMetric : Boolean, locNum : Int) {
+    constructor(activity : MainActivity, lon : String, lat : String, isMetric : Boolean, locNum : Int, forTrending : Boolean) {
         this.activity = activity
 
         this.lon = lon
         this.lat = lat
         this.locNum = locNum
+        this.forTrending = forTrending
 
         // This is used to change the output between metric and imperial.
         if (isMetric) this.isMetric = "metric"
@@ -162,7 +164,10 @@ class HomeApiTask : Thread {
 
     inner class UpdateGui : Runnable {
         override fun run() {
-            activity.updateView(parseJson(results), locNum)
+            if (!forTrending)
+                activity.updateView(parseJson(results), locNum, topKey, secondTopKey)
+            else
+                activity.updateTrending(parseJson(results), locNum)
         }
     }
 }
