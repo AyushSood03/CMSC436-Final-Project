@@ -1,6 +1,11 @@
 package com.example.finalproject
 
 import android.util.Log
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
@@ -18,6 +23,12 @@ class HomeApiTask : Thread {
     private var isMetric : String = "imperial"
     private var locNum : Int = 0
 
+    private var firebase: FirebaseDatabase
+    private var reference: DatabaseReference
+
+    private var topKey: String = ""
+    private var secondTopKey: String = ""
+
     constructor(activity : MainActivity, lon : String, lat : String, isMetric : Boolean, locNum : Int) {
         this.activity = activity
 
@@ -28,6 +39,9 @@ class HomeApiTask : Thread {
         // This is used to change the output between metric and imperial.
         if (isMetric) this.isMetric = "metric"
         else this.isMetric = "imperial"
+
+        this.firebase = FirebaseDatabase.getInstance()
+        this.reference = firebase.getReference()
     }
 
     override fun run() {
@@ -51,6 +65,35 @@ class HomeApiTask : Thread {
             Log.w("MainActivity", "Exception: " + e.message)
             Log.w("MainActivity", "Exception: " + e.toString())
         }
+
+        // Firebase stuff for trending locations. -Ayush
+        Log.w("MainActivity", "HomeApiTask Before reading firebase")
+
+        reference.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var topValue: Int = 0
+                for (childShapshot in dataSnapshot.children) {
+                    val childKey = childShapshot.key.toString()
+                    val childValue = childShapshot.value.toString().toInt()
+                    Log.w("MainActivity", "--------------------------------------------")
+                    Log.w("MainActivity", "childKey: $childKey, childValue: $childValue")
+                    Log.w("MainActivity", "topKey: $topKey, topValue: $topValue")
+                    if (childValue > topValue) {
+                        topValue = childValue
+                        this@HomeApiTask.secondTopKey = topKey
+                        this@HomeApiTask.topKey = childKey
+                    }
+                    Log.w("MainActivity", "childKey: $childKey, childValue: $childValue")
+                    Log.w("MainActivity", "topKey: $topKey, topValue: $topValue")
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("MainActivity", "Error reading data: $error")
+            }
+        })
+
+        Log.w("MainActivity", "Top Key: $topKey")
+        Log.w("MainActivity", "Second Top Key: $secondTopKey")
 
         var updateGui : UpdateGui = UpdateGui()
         activity.runOnUiThread(updateGui)
