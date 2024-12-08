@@ -112,6 +112,8 @@ class SearchActivity : AppCompatActivity() {
 
         Log.w("MainActivity", "Reached geocode part")
 
+        Thread.sleep(1000L)
+
         // Please forgive me for what I have done. I need this here to create a delay so that lon
         // and lat are updated in main class before the rest of the geocode function executes.
         while (shittyDelayThing) { /* Literally nothing happens in here. */ }

@@ -29,6 +29,9 @@ class HomeApiTask : Thread {
     private var topKey: String = ""
     private var secondTopKey: String = ""
 
+    private var shittyDelayThing2 = true // Following in the footsteps of Leo, our fearless leader. -Ayush
+    private var dummyVal: Int = 0
+
     constructor(activity : MainActivity, lon : String, lat : String, isMetric : Boolean, locNum : Int) {
         this.activity = activity
 
@@ -66,31 +69,22 @@ class HomeApiTask : Thread {
             Log.w("MainActivity", "Exception: " + e.toString())
         }
 
-        // Firebase stuff for trending locations. -Ayush
         Log.w("MainActivity", "HomeApiTask Before reading firebase")
+        Log.w("MainActivity", "shittyDelayThing2: $shittyDelayThing2")
 
-        reference.addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var topValue: Int = 0
-                for (childShapshot in dataSnapshot.children) {
-                    val childKey = childShapshot.key.toString()
-                    val childValue = childShapshot.value.toString().toInt()
-                    Log.w("MainActivity", "--------------------------------------------")
-                    Log.w("MainActivity", "childKey: $childKey, childValue: $childValue")
-                    Log.w("MainActivity", "topKey: $topKey, topValue: $topValue")
-                    if (childValue > topValue) {
-                        topValue = childValue
-                        this@HomeApiTask.secondTopKey = topKey
-                        this@HomeApiTask.topKey = childKey
-                    }
-                    Log.w("MainActivity", "childKey: $childKey, childValue: $childValue")
-                    Log.w("MainActivity", "topKey: $topKey, topValue: $topValue")
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {
-                Log.w("MainActivity", "Error reading data: $error")
-            }
-        })
+        val listener: TrendListener = TrendListener()
+        reference.addValueEventListener(listener)
+        reference.child("dummy").setValue(dummyVal.toString())
+
+        Thread.sleep(1000L)
+
+        while (shittyDelayThing2) {
+            //dilly dally until variables get updated
+        }
+
+        reference.child("dummy").removeValue()
+        reference.removeEventListener(listener)
+        shittyDelayThing2 = true
 
         Log.w("MainActivity", "Top Key: $topKey")
         Log.w("MainActivity", "Second Top Key: $secondTopKey")
@@ -133,6 +127,37 @@ class HomeApiTask : Thread {
         }
 
         return res
+    }
+
+    inner class TrendListener: ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+            var topValue: Int = 0
+            var secondTopValue: Int = 0
+            for (childShapshot in snapshot.children) {
+                val childKey = childShapshot.key.toString()
+                val childValue = childShapshot.value.toString().toInt()
+                //Log.w("MainActivity", "--------------------------------------------")
+                //Log.w("MainActivity", "childKey: $childKey, childValue: $childValue")
+                //Log.w("MainActivity", "topKey: $topKey, topValue: $topValue")
+                if (childValue > topValue) {
+                    topValue = childValue
+                    this@HomeApiTask.secondTopKey = topKey
+                    this@HomeApiTask.topKey = childKey
+                }
+                if ((childValue > secondTopValue) && (childKey != topKey)) {
+                    secondTopValue = childValue
+                    this@HomeApiTask.secondTopKey = childKey
+                }
+                //.w("MainActivity", "childKey: $childKey, childValue: $childValue")
+                //Log.w("MainActivity", "topKey: $topKey, topValue: $topValue")
+            }
+            shittyDelayThing2 = false
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("MainActivity", "Error reading data: $error")
+        }
+
     }
 
     inner class UpdateGui : Runnable {

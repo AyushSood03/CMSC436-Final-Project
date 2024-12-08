@@ -41,6 +41,19 @@ class FirebaseTask: Thread {
             this.reference.child(this.key).setValue("1")
             Log.w("MainActivity", "After Adding New Child")
         }
+
+        /*this.reference.child("dummy").get().addOnSuccessListener {
+            Log.w("MainActivity", "Before Updating Dummy Child")
+            var str: String = it.value.toString()
+            Log.w("MainActivity", "$str")
+            this.reference.child("dummy").setValue((it.value.toString().toInt() - 1).toString())
+            Log.w("MainActivity", "After Updating Dummy Child")
+        }.addOnFailureListener{
+            Log.w("MainActivity", "Before Adding Dummy Child")
+            this.reference.child("dummy").setValue("0")
+            Log.w("MainActivity", "After Adding Dummy Child")
+        }*/
+
         Log.w("MainActivity", "End of FirebaseTask.run()")
     }
 }
