@@ -10,6 +10,7 @@ import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -56,6 +57,19 @@ class MainActivity : AppCompatActivity() {
 
         getPreferences()
 
+        // Ads.
+        var adView : AdView = AdView(this)
+        var adSize : AdSize = AdSize(AdSize.FULL_WIDTH, AdSize.AUTO_HEIGHT)
+        adView.setAdSize(adSize)
+        var adUnitId : String = "ca-app-pub-3940256099942544/6300978111"
+        adView.adUnitId = adUnitId
+        var builder : AdRequest.Builder = AdRequest.Builder()
+        builder.addKeyword("weather")
+        var request : AdRequest = builder.build()
+        var adLayout : LinearLayout = findViewById(R.id.ad_view)
+        adLayout.addView(adView)
+        adView.load_ad(request)
+
         if (!favLon1.equals("none") && favLat1.equals("none")) {
             var task1 : HomeApiTask = HomeApiTask(this, favLon1, favLat1, isMetric, 0, false)
             task1.start()
@@ -68,6 +82,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        adView.resume()
 
         getPreferences()
 
@@ -79,6 +94,16 @@ class MainActivity : AppCompatActivity() {
             var task2: HomeApiTask = HomeApiTask(this, favLon2, favLat2, isMetric, 1, false)
             task2.start()
         }
+    }
+
+    override fun onPause() {
+        adView.pause()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        adView.destroy()
+        super.onDestroy()
     }
 
     fun updateView(s : String, locNum : Int, topKey : String, secondTopKey : String) {
