@@ -14,6 +14,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 
 // API Key: 8706163ae20d4101be7163438242711
 
@@ -38,6 +41,8 @@ class MainActivity : AppCompatActivity() {
     // I'm just tired at this point.
     private var isTrend1 : Boolean = true
 
+    private lateinit var adView : AdView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -58,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         getPreferences()
 
         // Ads.
-        var adView : AdView = AdView(this)
+        adView = AdView(this)
         var adSize : AdSize = AdSize(AdSize.FULL_WIDTH, AdSize.AUTO_HEIGHT)
         adView.setAdSize(adSize)
         var adUnitId : String = "ca-app-pub-3940256099942544/6300978111"
