@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         var request : AdRequest = builder.build()
         var adLayout : LinearLayout = findViewById(R.id.ad_view)
         adLayout.addView(adView)
-        adView.load_ad(request)
+        adView.loadAd(request)
 
         if (!favLon1.equals("none") && favLat1.equals("none")) {
             var task1 : HomeApiTask = HomeApiTask(this, favLon1, favLat1, isMetric, 0, false)
